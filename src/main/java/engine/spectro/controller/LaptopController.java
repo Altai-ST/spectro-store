@@ -1,7 +1,7 @@
 package engine.spectro.controller;
 
 import engine.spectro.entity.LaptopEntity;
-import engine.spectro.enums.LaptopEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
 import engine.spectro.model.LaptopPage;
 import engine.spectro.model.LaptopSearchCriteria;
@@ -35,7 +35,7 @@ public class LaptopController {
     @PostMapping(value = "/saveNewLaptop")
     public ResponseEntity saveNewLaptop(@RequestBody LaptopEntity laptop){
         try {
-            laptop.setStatus(LaptopEnum.available);
+            laptop.setStatus(GeneralProductEnum.available);
             laptopService.save(laptop);
             return ResponseEntity.ok("Сохранил");
         }catch (Exception e){
@@ -95,7 +95,7 @@ public class LaptopController {
             LaptopEntity l = laptopService.findByModel(model);
             int newAmount = l.getAmount() - amount;
             if (newAmount==0){
-                laptopService.update(model,newAmount,LaptopEnum.sold_out);
+                laptopService.update(model,newAmount,GeneralProductEnum.sold_out);
             } else if (newAmount>0) {
                 laptopService.update(model,newAmount);
             }

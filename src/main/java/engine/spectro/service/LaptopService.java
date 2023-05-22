@@ -1,7 +1,7 @@
 package engine.spectro.service;
 
 import engine.spectro.entity.LaptopEntity;
-import engine.spectro.enums.LaptopEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserAlreadyExistException;
 import engine.spectro.exception.UserNotFoundException;
 import engine.spectro.model.LaptopPage;
@@ -23,7 +23,7 @@ public class LaptopService {
     public void save(LaptopEntity laptop) throws UserAlreadyExistException {
         if(laptopRepo.findByModel(laptop.getModel())==null){
             if(laptop.getAmount()>0){
-                laptop.setStatus(LaptopEnum.available);
+                laptop.setStatus(GeneralProductEnum.available);
             }
         }
         laptopRepo.save(laptop);
@@ -69,7 +69,7 @@ public class LaptopService {
         }
     }
 
-    public void update(String model, Integer amount, LaptopEnum status) throws UserNotFoundException {
+    public void update(String model, Integer amount, GeneralProductEnum status) throws UserNotFoundException {
         LaptopEntity laptop1 = laptopRepo.findByModel(model);
         if(laptop1!=null){
             laptop1.setAmount(amount);
@@ -83,13 +83,13 @@ public class LaptopService {
     public void delete(Long id) throws UserNotFoundException {
         laptopRepo.findById(id).get();
         LaptopEntity laptop = laptopRepo.findById(id).get();
-        laptop.setStatus(LaptopEnum.deleted);
+        laptop.setStatus(GeneralProductEnum.deleted);
     }
 
     public void delete(String model) throws UserNotFoundException {
         if(laptopRepo.findByModel(model)!=null) {
             LaptopEntity laptop = laptopRepo.findByModel(model);
-            laptop.setStatus(LaptopEnum.deleted);
+            laptop.setStatus(GeneralProductEnum.deleted);
             laptopRepo.save(laptop);
         }else throw new UserNotFoundException("Can not update laptop list. It doesn't exist");
     }

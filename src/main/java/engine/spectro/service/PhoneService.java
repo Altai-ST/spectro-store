@@ -1,7 +1,7 @@
 package engine.spectro.service;
 
 import engine.spectro.entity.PhoneEntity;
-import engine.spectro.enums.PhoneEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
 import engine.spectro.model.PhonePage;
 import engine.spectro.model.PhoneSearchCriteria;
@@ -20,7 +20,7 @@ public class PhoneService {
     public void save(PhoneEntity phone){
         if(phoneRepo.findByModel(phone.getModel())==null){
             if(phone.getAmount()>0){
-                phone.setStatus(PhoneEnum.available);
+                phone.setStatus(GeneralProductEnum.available);
             }
             this.phoneRepo.save(phone);
         }
@@ -72,7 +72,7 @@ public class PhoneService {
         }
     }
 
-    public void update(String model, Integer amount, PhoneEnum status) throws UserNotFoundException {
+    public void update(String model, Integer amount, GeneralProductEnum status) throws UserNotFoundException {
         PhoneEntity phone1 = phoneRepo.findByModel(model);
         if(phone1!=null){
             phone1.setAmount(amount);
@@ -86,14 +86,14 @@ public class PhoneService {
     public void delete(Long id) throws UserNotFoundException {
         if(phoneRepo.findById(id).get()!=null) {
             PhoneEntity phone = phoneRepo.findById(id).get();
-            phone.setStatus(PhoneEnum.deleted);
+            phone.setStatus(GeneralProductEnum.deleted);
         }else throw new UserNotFoundException("Can not update phone list. It doesn't exist");
     }
 
     public void delete(String model) throws UserNotFoundException {
         if(phoneRepo.findByModel(model)!=null) {
             PhoneEntity phone = phoneRepo.findByModel(model);
-            phone.setStatus(PhoneEnum.deleted);
+            phone.setStatus(GeneralProductEnum.deleted);
             phoneRepo.save(phone);
         }else throw new UserNotFoundException("Can not update phone list. It doesn't exist");
     }

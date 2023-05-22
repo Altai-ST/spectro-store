@@ -1,7 +1,7 @@
 package engine.spectro.controller;
 
 import engine.spectro.entity.PhoneEntity;
-import engine.spectro.enums.PhoneEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
 import engine.spectro.model.PhonePage;
 import engine.spectro.model.PhoneSearchCriteria;
@@ -34,7 +34,7 @@ public class PhoneController {
     @PostMapping(value = "/saveNewPhone")
     public ResponseEntity saveNewPhone(@RequestBody PhoneEntity phone){
         try {
-            phone.setStatus(PhoneEnum.available);
+            phone.setStatus(GeneralProductEnum.available);
             phoneService.save(phone);
             return ResponseEntity.ok("Сохранил");
         }catch (Exception e){
@@ -105,7 +105,7 @@ public class PhoneController {
             PhoneEntity l = phoneService.findByModel(model);
             int newAmount = l.getAmount() - amount;
             if (newAmount==0){
-                phoneService.update(model,newAmount, PhoneEnum.sold_out);
+                phoneService.update(model,newAmount, GeneralProductEnum.sold_out);
             } else if (newAmount>0) {
                 phoneService.update(model,newAmount);
             }

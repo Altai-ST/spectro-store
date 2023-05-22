@@ -1,6 +1,6 @@
 package engine.spectro.enums;
 
-public enum PhoneEnum {
+public enum GeneralProductEnum {
     sold_out,
     deleted,
     available

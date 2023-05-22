@@ -1,7 +1,7 @@
 package engine.spectro.entity;
 
 
-import engine.spectro.enums.PhoneEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -90,7 +90,7 @@ public class PhoneEntity extends ProductEntity{
 
     @Column (name = "status")
     @Enumerated(EnumType.STRING)
-    private PhoneEnum status;
+    private GeneralProductEnum status;
 
     @Column(name="image")
     private String image;

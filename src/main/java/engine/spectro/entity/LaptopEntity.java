@@ -1,6 +1,6 @@
 package engine.spectro.entity;
 
-import engine.spectro.enums.LaptopEnum;
+import engine.spectro.enums.GeneralProductEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -75,7 +75,7 @@ public class LaptopEntity extends ProductEntity{
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private LaptopEnum status;
+    private GeneralProductEnum status;
 
     @Column(name="image")
     private String image;
