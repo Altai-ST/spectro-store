@@ -94,38 +94,4 @@ public class PhoneEntity extends ProductEntity{
 
     @Column(name="image")
     private String image;
-
-    @Override
-    public String toString() {
-        return "PhoneEntity{" +
-                "id=" + id +
-                ", model='" + model + '\'' +
-                ", proizvoditel='" + proizvoditel + '\'' +
-                ", stranaProizvoditel='" + stranaProizvoditel + '\'' +
-                ", tipPamyati='" + tipPamyati + '\'' +
-                ", vstroennayaPamyat='" + vstroennayaPamyat + '\'' +
-                ", operativnayaPamyat='" + operativnayaPamyat + '\'' +
-                ", tipEkrana='" + tipEkrana + '\'' +
-                ", chastotaObnovleniya='" + chastotaObnovleniya + '\'' +
-                ", razmerEkrana='" + razmerEkrana + '\'' +
-                ", razreshenieEkrana='" + razreshenieEkrana + '\'' +
-                ", dopolnitelnyiModulKamer='" + dopolnitelnyiModulKamer + '\'' +
-                ", osnovnoiModulKamer='" + osnovnoiModulKamer + '\'' +
-                ", shirokougolnyiModulKamer='" + shirokougolnyiModulKamer + '\'' +
-                ", frontalnayaKamera='" + frontalnayaKamera + '\'' +
-                ", dinamic='" + dinamic + '\'' +
-                ", vyhodNaushnikov='" + vyhodNaushnikov + '\'' +
-                ", razemy='" + razemy + '\'' +
-                ", kolichestvoSIMKart='" + kolichestvoSIMKart + '\'' +
-                ", tipSIMKart='" + tipSIMKart + '\'' +
-                ", nfc=" + nfc +
-                ", zashitaOtVlagi='" + zashitaOtVlagi + '\'' +
-                ", tipProtsessora='" + tipProtsessora + '\'' +
-                ", amount=" + amount +
-                ", prise=" + prise +
-                ", opisanie='" + opisanie + '\'' +
-                ", status=" + status +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }
