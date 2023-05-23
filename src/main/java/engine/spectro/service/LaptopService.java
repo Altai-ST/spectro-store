@@ -98,6 +98,8 @@ public class LaptopService {
         return laptopCriteriaRepo.findAllWithFilters(page,laptopSearchCriteria);
     }
 
+
+
     public LaptopEntity findByModel(String model){
         return laptopRepo.findByModel(model);
     }

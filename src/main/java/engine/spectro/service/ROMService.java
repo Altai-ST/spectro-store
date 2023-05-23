@@ -1,5 +1,6 @@
 package engine.spectro.service;
 
+import engine.spectro.entity.PhoneEntity;
 import engine.spectro.entity.ROMEntity;import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.*;
 import engine.spectro.repository.ROMRepo;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.util.*;
 
 @Service
 public class ROMService {
@@ -78,6 +80,14 @@ public class ROMService {
         }else throw new UserNotFoundException("Can not update rom list. It doesn't exist");
     }
 
+    public List<ROMEntity> filterRom(Map<String, Object> filters) {
+        return romRepo.findByFilters(filters);
+    }
 
-
+    public ROMEntity findByModel(String model){
+        return romRepo.findByModel(model);
+    }
+    public ROMEntity findById(Long id){
+        return romRepo.findById(id).get();
+    }
 }

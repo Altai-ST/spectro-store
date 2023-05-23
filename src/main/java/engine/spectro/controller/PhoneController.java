@@ -35,6 +35,7 @@ public class PhoneController {
     public ResponseEntity saveNewPhone(@RequestBody PhoneEntity phone){
         try {
             phone.setStatus(GeneralProductEnum.available);
+            phone.setStatus(GeneralProductEnum.available);
             phoneService.save(phone);
             return ResponseEntity.ok("Сохранил");
         }catch (Exception e){
