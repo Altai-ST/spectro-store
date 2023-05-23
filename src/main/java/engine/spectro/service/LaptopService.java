@@ -4,7 +4,7 @@ import engine.spectro.entity.LaptopEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserAlreadyExistException;
 import engine.spectro.exception.UserNotFoundException;
-import engine.spectro.model.LaptopPage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.LaptopSearchCriteria;
 import engine.spectro.repository.LaptopCriteriaRepo;
 import engine.spectro.repository.LaptopRepo;
@@ -94,7 +94,7 @@ public class LaptopService {
         }else throw new UserNotFoundException("Can not update laptop list. It doesn't exist");
     }
 
-    public Page<LaptopEntity> filter(LaptopPage page, LaptopSearchCriteria laptopSearchCriteria){
+    public Page<LaptopEntity> filter(UniversalPage page, LaptopSearchCriteria laptopSearchCriteria){
         return laptopCriteriaRepo.findAllWithFilters(page,laptopSearchCriteria);
     }
 

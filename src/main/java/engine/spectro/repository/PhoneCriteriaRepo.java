@@ -1,7 +1,7 @@
 package engine.spectro.repository;
 
 import engine.spectro.entity.PhoneEntity;
-import engine.spectro.model.PhonePage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.PhoneSearchCriteria;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
@@ -23,17 +23,17 @@ public class PhoneCriteriaRepo {
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public Page<PhoneEntity> findAllWithFilters(PhonePage phonePage, PhoneSearchCriteria searchCriteria) {
+    public Page<PhoneEntity> findAllWithFilters(UniversalPage universalPage, PhoneSearchCriteria searchCriteria) {
         CriteriaQuery<PhoneEntity> criteriaQuery = criteriaBuilder.createQuery(PhoneEntity.class);
         Root<PhoneEntity> root = criteriaQuery.from(PhoneEntity.class);
         Predicate predicate = getPredicate(searchCriteria, root);
         criteriaQuery.where(predicate);
-        setOrder(phonePage, criteriaQuery, root);
+        setOrder(universalPage, criteriaQuery, root);
         TypedQuery<PhoneEntity> typedQuery = entityManager.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(phonePage.getPageNumber() * phonePage.getPageSize());
-        typedQuery.setMaxResults(phonePage.getPageSize());
+        typedQuery.setFirstResult(universalPage.getPageNumber() * universalPage.getPageSize());
+        typedQuery.setMaxResults(universalPage.getPageSize());
 
-        Pageable pageable = getPageable(phonePage);
+        Pageable pageable = getPageable(universalPage);
 
         long phoneCount = getPhoneCount(predicate);
         return new PageImpl<>(typedQuery.getResultList(), pageable, phoneCount);
@@ -46,16 +46,16 @@ public class PhoneCriteriaRepo {
         return entityManager.createQuery(countQuery).getSingleResult();
     }
 
-    private Pageable getPageable(PhonePage phonePage) {
-        Sort sort = Sort.by(phonePage.getSortDirection(), phonePage.getSortBy());
-        return PageRequest.of(phonePage.getPageNumber(), phonePage.getPageSize(), sort);
+    private Pageable getPageable(UniversalPage universalPage) {
+        Sort sort = Sort.by(universalPage.getSortDirection(), universalPage.getSortBy());
+        return PageRequest.of(universalPage.getPageNumber(), universalPage.getPageSize(), sort);
     }
 
-    private void setOrder(PhonePage phonePage, CriteriaQuery<PhoneEntity> criteriaQuery, Root<PhoneEntity> root) {
-        if (phonePage.getSortDirection().equals(Sort.Direction.ASC)) {
-            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(phonePage.getSortBy())));
+    private void setOrder(UniversalPage universalPage, CriteriaQuery<PhoneEntity> criteriaQuery, Root<PhoneEntity> root) {
+        if (universalPage.getSortDirection().equals(Sort.Direction.ASC)) {
+            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(universalPage.getSortBy())));
         } else {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(phonePage.getSortBy())));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(universalPage.getSortBy())));
         }
     }
 

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "mother_board")
-public class MotherBoard extends ProductEntity{
+public class MotherBoardEntity extends ProductEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

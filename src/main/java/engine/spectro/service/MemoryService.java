@@ -1,5 +1,6 @@
 package engine.spectro.service;
 
+import engine.spectro.entity.LaptopEntity;
 import engine.spectro.entity.MemoryEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserAlreadyExistException;
@@ -79,4 +80,6 @@ public class MemoryService {
             memoryRepo.save(motherBoard);
         }else throw new UserNotFoundException("Can not update motherBoard list. It doesn't exist");
     }
+
+
 }

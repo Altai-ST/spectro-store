@@ -1,7 +1,7 @@
 package engine.spectro.repository;
 
 import engine.spectro.entity.LaptopEntity;
-import engine.spectro.model.LaptopPage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.LaptopSearchCriteria;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
@@ -22,17 +22,17 @@ public class LaptopCriteriaRepo {
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public Page<LaptopEntity> findAllWithFilters(LaptopPage laptopPage, LaptopSearchCriteria searchCriteria) {
+    public Page<LaptopEntity> findAllWithFilters(UniversalPage universalPage, LaptopSearchCriteria searchCriteria) {
         CriteriaQuery<LaptopEntity> criteriaQuery = criteriaBuilder.createQuery(LaptopEntity.class);
         Root<LaptopEntity> root = criteriaQuery.from(LaptopEntity.class);
         Predicate predicate = getPredicate(searchCriteria, root);
         criteriaQuery.where(predicate);
-        setOrder(laptopPage, criteriaQuery, root);
+        setOrder(universalPage, criteriaQuery, root);
         TypedQuery<LaptopEntity> typedQuery = entityManager.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(laptopPage.getPageNumber() * laptopPage.getPageSize());
-        typedQuery.setMaxResults(laptopPage.getPageSize());
+        typedQuery.setFirstResult(universalPage.getPageNumber() * universalPage.getPageSize());
+        typedQuery.setMaxResults(universalPage.getPageSize());
 
-        Pageable pageable = getPageable(laptopPage);
+        Pageable pageable = getPageable(universalPage);
 
         long laptopCount = getLaptopCount(predicate);
         return new PageImpl<>(typedQuery.getResultList(), pageable, laptopCount);
@@ -45,16 +45,16 @@ public class LaptopCriteriaRepo {
         return entityManager.createQuery(countQuery).getSingleResult();
     }
 
-    private Pageable getPageable(LaptopPage laptopPage) {
-        Sort sort = Sort.by(laptopPage.getSortDirection(), laptopPage.getSortBy());
-        return PageRequest.of(laptopPage.getPageNumber(), laptopPage.getPageSize(), sort);
+    private Pageable getPageable(UniversalPage universalPage) {
+        Sort sort = Sort.by(universalPage.getSortDirection(), universalPage.getSortBy());
+        return PageRequest.of(universalPage.getPageNumber(), universalPage.getPageSize(), sort);
     }
 
-    private void setOrder(LaptopPage laptopPage, CriteriaQuery<LaptopEntity> criteriaQuery, Root<LaptopEntity> root) {
-        if (laptopPage.getSortDirection().equals(Sort.Direction.ASC)) {
-            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(laptopPage.getSortBy())));
+    private void setOrder(UniversalPage universalPage, CriteriaQuery<LaptopEntity> criteriaQuery, Root<LaptopEntity> root) {
+        if (universalPage.getSortDirection().equals(Sort.Direction.ASC)) {
+            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(universalPage.getSortBy())));
         } else {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(laptopPage.getSortBy())));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(universalPage.getSortBy())));
         }
     }
 

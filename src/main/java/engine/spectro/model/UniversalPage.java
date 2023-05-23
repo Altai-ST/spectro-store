@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.domain.Sort;
 
 @Data
-public class LaptopPage {
+public class UniversalPage {
     private int pageNumber;
     private int pageSize;
     private Sort.Direction sortDirection = Sort.Direction.ASC;

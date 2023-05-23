@@ -1,6 +1,7 @@
 package engine.spectro.service;
 
-import engine.spectro.entity.MotherBoard;
+import engine.spectro.entity.MotherBoardEntity;
+import engine.spectro.entity.MotherBoardEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserAlreadyExistException;
 import engine.spectro.exception.UserNotFoundException;
@@ -15,40 +16,40 @@ public class MotherBoardService {
     @Autowired
     MotherBoardRepo motherBoardRepo;
 
-    public void save(MotherBoard motherBoard) throws UserAlreadyExistException {
-        if(motherBoardRepo.findByModel(motherBoard.getModel())==null){
-            if(motherBoard.getAmount()>0){
-                motherBoard.setStatus(GeneralProductEnum.available);
+    public void save(MotherBoardEntity motherBoardEntity) throws UserAlreadyExistException {
+        if(motherBoardRepo.findByModel(motherBoardEntity.getModel())==null){
+            if(motherBoardEntity.getAmount()>0){
+                motherBoardEntity.setStatus(GeneralProductEnum.available);
             }
         }
-        motherBoardRepo.save(motherBoard);
+        motherBoardRepo.save(motherBoardEntity);
     }
 
     public void update(String model, Integer amount) throws UserNotFoundException {
-        MotherBoard motherBoard1 = motherBoardRepo.findByModel(model);
-        if(motherBoard1!=null){
-            motherBoard1.setAmount(amount);
-            motherBoardRepo.save(motherBoard1);
+        MotherBoardEntity motherBoardEntity1 = motherBoardRepo.findByModel(model);
+        if(motherBoardEntity1 !=null){
+            motherBoardEntity1.setAmount(amount);
+            motherBoardRepo.save(motherBoardEntity1);
         }else{
             throw new UserNotFoundException("Can not update motherBoard list. It doesn't exist");
         }
     }
-    public void update(MotherBoard motherBoard) throws UserNotFoundException {
-        MotherBoard motherBoard1 = motherBoardRepo.findByModel(motherBoard.getModel());
-        if (motherBoard1 != null) {
-            Field[] fields = MotherBoard.class.getDeclaredFields();
+    public void update(MotherBoardEntity motherBoardEntity) throws UserNotFoundException {
+        MotherBoardEntity motherBoardEntity1 = motherBoardRepo.findByModel(motherBoardEntity.getModel());
+        if (motherBoardEntity1 != null) {
+            Field[] fields = MotherBoardEntity.class.getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
                 try {
-                    Object value = field.get(motherBoard);
+                    Object value = field.get(motherBoardEntity);
                     if (value != null) {
-                        field.set(motherBoard1, value);
+                        field.set(motherBoardEntity1, value);
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
-            motherBoardRepo.save(motherBoard1);
+            motherBoardRepo.save(motherBoardEntity1);
         } else {
             throw new UserNotFoundException("Can not update motherBoard list. It doesn't exist");
         }
@@ -56,11 +57,11 @@ public class MotherBoardService {
 
 
     public void update(String model, Integer amount, GeneralProductEnum status) throws UserNotFoundException {
-        MotherBoard motherBoard1 = motherBoardRepo.findByModel(model);
-        if(motherBoard1!=null){
-            motherBoard1.setAmount(amount);
-            motherBoard1.setStatus(status);
-            motherBoardRepo.save(motherBoard1);
+        MotherBoardEntity motherBoardEntity1 = motherBoardRepo.findByModel(model);
+        if(motherBoardEntity1 !=null){
+            motherBoardEntity1.setAmount(amount);
+            motherBoardEntity1.setStatus(status);
+            motherBoardRepo.save(motherBoardEntity1);
         }else{
             throw new UserNotFoundException("Can not update motherBoard list. It doesn't exist");
         }
@@ -68,15 +69,22 @@ public class MotherBoardService {
 
     public void delete(Long id) throws UserNotFoundException {
         motherBoardRepo.findById(id).get();
-        MotherBoard motherBoard = motherBoardRepo.findById(id).get();
-        motherBoard.setStatus(GeneralProductEnum.deleted);
+        MotherBoardEntity motherBoardEntity = motherBoardRepo.findById(id).get();
+        motherBoardEntity.setStatus(GeneralProductEnum.deleted);
     }
 
     public void delete(String model) throws UserNotFoundException {
         if(motherBoardRepo.findByModel(model)!=null) {
-            MotherBoard motherBoard = motherBoardRepo.findByModel(model);
-            motherBoard.setStatus(GeneralProductEnum.deleted);
-            motherBoardRepo.save(motherBoard);
+            MotherBoardEntity motherBoardEntity = motherBoardRepo.findByModel(model);
+            motherBoardEntity.setStatus(GeneralProductEnum.deleted);
+            motherBoardRepo.save(motherBoardEntity);
         }else throw new UserNotFoundException("Can not update motherBoard list. It doesn't exist");
+    }
+
+    public MotherBoardEntity findByModel(String model){
+        return motherBoardRepo.findByModel(model);
+    }
+    public MotherBoardEntity findById(Long id){
+        return motherBoardRepo.findById(id).get();
     }
 }

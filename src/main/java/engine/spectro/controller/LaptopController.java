@@ -3,7 +3,7 @@ package engine.spectro.controller;
 import engine.spectro.entity.LaptopEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
-import engine.spectro.model.LaptopPage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.LaptopSearchCriteria;
 import engine.spectro.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,8 +78,8 @@ public class LaptopController {
     }
 
     @GetMapping(value = "/filter")
-    public ResponseEntity<List<LaptopEntity>> getLaptops( LaptopPage laptopPage, LaptopSearchCriteria laptopSearchCriteria){
-        Page<LaptopEntity> p = laptopService.filter(laptopPage,laptopSearchCriteria);
+    public ResponseEntity<List<LaptopEntity>> getLaptops( UniversalPage universalPage, LaptopSearchCriteria laptopSearchCriteria){
+        Page<LaptopEntity> p = laptopService.filter(universalPage,laptopSearchCriteria);
         List<LaptopEntity> pa = p.getContent();
         return new ResponseEntity<>(pa, HttpStatus.OK);
     }

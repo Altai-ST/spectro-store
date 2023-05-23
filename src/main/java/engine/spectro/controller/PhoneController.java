@@ -3,7 +3,7 @@ package engine.spectro.controller;
 import engine.spectro.entity.PhoneEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
-import engine.spectro.model.PhonePage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.PhoneSearchCriteria;
 import engine.spectro.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,8 +86,8 @@ public class PhoneController {
     }
 
     @GetMapping(value = "/filter")
-    public ResponseEntity<List<PhoneEntity>> getPhones(PhonePage phonePage, PhoneSearchCriteria phoneSearchCriteria){
-        Page<PhoneEntity> p = phoneService.filter(phonePage,phoneSearchCriteria);
+    public ResponseEntity<List<PhoneEntity>> getPhones(UniversalPage universalPage, PhoneSearchCriteria phoneSearchCriteria){
+        Page<PhoneEntity> p = phoneService.filter(universalPage,phoneSearchCriteria);
         List<PhoneEntity> pa = p.getContent();
         System.out.println(pa.get(pa.toArray().length-1).toString());
         System.out.println(pa.toArray().length-1);

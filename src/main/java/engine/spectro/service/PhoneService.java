@@ -3,7 +3,7 @@ package engine.spectro.service;
 import engine.spectro.entity.PhoneEntity;
 import engine.spectro.enums.GeneralProductEnum;
 import engine.spectro.exception.UserNotFoundException;
-import engine.spectro.model.PhonePage;
+import engine.spectro.model.UniversalPage;
 import engine.spectro.model.PhoneSearchCriteria;
 import engine.spectro.repository.PhoneCriteriaRepo;
 import engine.spectro.repository.PhoneRepo;
@@ -98,7 +98,7 @@ public class PhoneService {
         }else throw new UserNotFoundException("Can not update phone list. It doesn't exist");
     }
 
-    public Page<PhoneEntity> filter(PhonePage page, PhoneSearchCriteria phoneSearchCriteria){
+    public Page<PhoneEntity> filter(UniversalPage page, PhoneSearchCriteria phoneSearchCriteria){
         return phoneCriteriaRepo.findAllWithFilters(page,phoneSearchCriteria);
     }
 
